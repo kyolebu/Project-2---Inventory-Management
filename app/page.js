@@ -71,7 +71,8 @@ export default function Home() {
       width="100vw" 
       height="100vh" 
       display="flex" 
-      justifyContent="center" 
+      justifyContent="center"
+      flexDirection="column"
       alignItems="center" 
       gap={2}
     >
@@ -111,7 +112,75 @@ export default function Home() {
           </Stack>
         </Box>
       </Modal>
-      <Typography variant="h1">Inventory Management</Typography>
+      <Button 
+        variant="contained" 
+        onClick={()=>{
+          handleOpen()
+        }}
+      >
+        Add New Item
+      </Button>
+      <Box border="1px solid #333">
+        <Box 
+          width="800px" 
+          height="100px" 
+          bgcolor="#ADD8E6"
+          alignItems="center"
+          display="flex"
+          justifyContent="center"
+        >
+          <Typography variant="h2" color="#333">
+            Inventory Items
+          </Typography>
+        </Box>
+        <Stack width="800px" height="300px" spacing={2} overflow="auto">
+          {inventory.map(({name, quantity})=>(
+              <Box 
+                key={name} 
+                width="100%" 
+                minHeight="150px" 
+                display="flex" 
+                alignItems="center" 
+                justifyContent="space-between" 
+                bgColor="#f0f0f0" 
+                padding={5}
+              >
+                <Typography 
+                  variant="h4"
+                  color="#333"
+                  textAlign="center"
+                >
+                  {name.charAt(0).toUpperCase() + name.slice(1)}
+                </Typography>
+                <Typography 
+                  variant="h4"
+                  color="#333"
+                  textAlign="center"
+                >
+                  {quantity}
+                </Typography>
+                <Stack direction="row" spacing={2}>
+                  <Button 
+                    variant="contained" 
+                    onClick={()=>{
+                      addItem(name)
+                    }}
+                  >
+                    Add
+                  </Button>
+                  <Button 
+                    variant="contained" 
+                    onClick={()=>{
+                      removeItem(name)
+                    }}
+                  >
+                    Remove
+                  </Button>
+                </Stack>
+              </Box>
+            ))}
+        </Stack>
+      </Box>
     </Box>
   )
 }
